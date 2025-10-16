@@ -6,7 +6,7 @@ import { addToCompare, getCompareItems, removeFromCompare } from "@/services/api
 import Header from "@/components/organisms/Header";
 import CartDrawer from "@/components/organisms/CartDrawer";
 const Layout = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+const { isAuthenticated, user } = useSelector((state) => state.user);
   const [cartItems, setCartItems] = useState([]);
   const [compareItems, setCompareItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
