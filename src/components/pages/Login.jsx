@@ -35,38 +35,7 @@ function Login() {
         </div>
       </div>
     </div>
-  );
+);
 }
 
 export default Login;
-          </div>
-
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <ApperIcon name="Loader2" size={16} className="mr-2 animate-spin" />
-                Signing in...
-              </>
-            ) : (
-              'Sign In'
-            )}
-          </Button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <button
-            type="button"
-            onClick={() => navigate('/')}
-            className="text-sm text-primary hover:text-primary/80 transition-colors"
-          >
-            Continue shopping instead
-          </button>
-        </div>
-      </Card>
-    </div>
-  );
-};
