@@ -1,0 +1,28 @@
+[
+  {
+    "Id": 1,
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1,
+        "price": 134900,
+        "name": "iPhone 15 Pro Max"
+      }
+    ],
+    "total": 134900,
+    "deliveryAddress": {
+      "fullName": "John Doe",
+      "email": "john@example.com",
+      "phone": "9876543210",
+      "address": "123 Main Street, Apartment 4B",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "pincode": "400001",
+      "country": "India"
+    },
+    "paymentMethod": "cod",
+    "status": "confirmed",
+    "orderDate": "2024-01-15T10:30:00Z",
+    "estimatedDelivery": "2024-01-20T00:00:00Z"
+  }
+]
