@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@/store/authSlice";
+import { clearUser } from "@/store/userSlice";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
@@ -10,7 +10,7 @@ import SearchBar from "@/components/molecules/SearchBar";
 const Header = ({ cartItemCount = 0, compareItemsCount = 0 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,11 +29,16 @@ const Header = ({ cartItemCount = 0, compareItemsCount = 0 }) => {
     navigate("/compare");
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-    toast.success("Logged out successfully");
-    navigate("/");
-    setShowUserMenu(false);
+const handleLogout = async () => {
+    try {
+      dispatch(clearUser());
+      toast.success("Logged out successfully");
+      navigate("/login");
+      await window.ApperSDK?.ApperUI?.logout();
+      setShowUserMenu(false);
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const handleSearch = (query) => {
@@ -77,10 +82,10 @@ const Header = ({ cartItemCount = 0, compareItemsCount = 0 }) => {
             <button
               onClick={() => setShowUserMenu(!showUserMenu)}
               className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-lg transition-colors"
-            >
+>
               <ApperIcon name="User" size={20} className="text-gray-700" />
               <span className="text-sm font-medium text-gray-700 hidden sm:inline">
-                {user?.name || user?.email}
+                {user?.firstName || user?.emailAddress?.split('@')[0] || 'User'}
               </span>
               <ApperIcon name="ChevronDown" size={16} className="text-gray-500" />
             </button>
@@ -94,8 +99,8 @@ const Header = ({ cartItemCount = 0, compareItemsCount = 0 }) => {
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                   <div className="px-4 py-2 border-b border-gray-200">
                     <p className="text-xs text-gray-500">Signed in as</p>
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {user?.email}
+<p className="text-sm font-medium text-gray-900 truncate">
+                      {user?.emailAddress}
                     </p>
                   </div>
                   <button
